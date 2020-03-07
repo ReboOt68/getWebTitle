@@ -28,32 +28,37 @@ def getWebTitle(url):
             print(str(title) + '\n')
             output.write(str(title) + '\n')
             #output.write(url + '  ------  ' + str(title) + '\n')
-    except urllib.error.URLError as e:
+    except Exception as e:
         error = str(e)
         if "urlopen error [Errno 11001]" in error:
             print('站点无法访问\n')
             output.write('站点无法访问\n')
             #output.write(url + '  ------  ' + '站点无法访问\n')
-        if "403" in error:
+        elif "403" in error:
             print("403 Forbidden\n")
             output.write("403 Forbidden\n")
             #output.write(url + '  ------  ' + "403 Forbidden\n")
-        if "SSL: CERTIFICATE_VERIFY_FAILED" in error:
+        elif "SSL: CERTIFICATE_VERIFY_FAILED" in error:
             print("证书异常，需自行访问。\n")
             output.write("证书异常，需自行访问。\n")
             #output.write(url + '  ------  ' + "证书异常，需自行访问。\n")
-        if "404" in error:
+        elif "404" in error:
             print("页面404\n")
             output.write("页面404\n")
             #output.write(url + '  ------  ' + "页面404\n")
-        if "WinError 10061" in error:
+        elif "WinError 10061" in error:
             print("由于目标计算机积极拒绝，无法连接。\n")
             output.write("由于目标计算机积极拒绝，无法连接。\n")
             #output.write(url + '  ------  ' + "由于目标计算机积极拒绝，无法连接。\n")
-        if "WinError 10060" in error:
+        elif "WinError 10060" in error:
             print("由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。\n")
             output.write("由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。\n")
             #output.writable(url + '  ------  ' + "由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。\n")
+        else:
+            print(error+'\n')
+            output.write(error+'\n')
+            #output.writable(url + '  ------  ' + "error+'\n')
+
 
 if __name__ == '__main__':
     #print(sys.argv[1])
@@ -69,4 +74,3 @@ if __name__ == '__main__':
         else:
             getWebTitle(url)
     output.close()
-
